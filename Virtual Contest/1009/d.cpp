@@ -1,4 +1,4 @@
-//https://atcoder.jp/contests/dp/tasks/dp_d
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -36,41 +36,21 @@ void fastio() {
     cin.tie(0);
     cout.tie(0);
 }
-int help(int n, int i , int remw, vector<int>&w, vector<int>&val , vector<vector<int>> &dp){
-    if(i == val.size() || remw == 0) return 0;
-    if(remw < 0) return INT_MIN;
-
-    if(dp[i][remw] != -1) return dp[i][j];
-    int op1 = val[i] + help(n , i+1 , remw - w[i] ,w , val , dp);
-    int op2 = help(n , i+1 , remw-w[i] , w , val , dp);
-
-
-    return dp[i][remw] = max(op1 , op2);
-}
+struct Point{
+    int x , r;
+};
 void solve() {
-    int n , cap;
-    cin >> n >> cap;
+    int n , m ; cin >> n >> m;
 
-    vector<int> w(n) , val(n);
-    for(int i = 0; i < n; i++){
-        cin >> w[i] >> val[i];
-    }
-    vector<vector<int>> dp(n , vector<int>(cap + 1 , 0));
+    vector<Point> point(n);
+    for(int i = 0 ; i < n; i++) cin >> point[i].x ;
+    for(int i = 0 ; i < n; i++) cin >> point[i].r ;
 
-    for (int i = 1; i <= n; i++) {            // Loop over items
-        for (int j = 0; j <= cap; j++) {      // Loop over capacity
-            dp[i][j] = dp[i - 1][j];          // Skip current item
-            if (j >= w[i - 1]) {              // If we can take is
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - w[i - 1]] + val[i - 1]);
-            }
-        }
-    }
+    sort(point.begin() , point.end());
+    
 }
-
-
 int32_t main() {
     fastio();
-
     int t = 1;
     cin >> t;
     while (t--) {
@@ -79,4 +59,3 @@ int32_t main() {
 
     return 0;
 }
-
