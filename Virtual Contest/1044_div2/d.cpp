@@ -38,47 +38,12 @@ void fastio() {
 }
 
 void solve() {
-    int n , m , q; cin >> n >> m >> q;
+    int n; cin>> n;
+    vector<int> h(n);
 
-    vector<int> a(n) , b(m);
-    for(int i = 0 ; i < n ; i++) cin >> a[i];
-    for(int j = 0 ; j  < m ; j ++) cin >> b[j];
+    for(auto &x : h ) cin >> x;
 
-    sort(a.rbegin() , a.rend());
-    sort(b.rbegin() , b.rend());
-    vector<int> pre_a(n+1) , pre_b(m+1);
-
-    for(int i = 0 ; i < n ; i ++){
-        pre_a[i+1] = pre_a[i] + a[i];
-    }
-    for(int i = 0 ; i < m ; i ++){
-        pre_b[i+1] = pre_b[i] + b[i];
-    }
-
-    vector<pair<int ,int>> p(n + m + 1);
-    int l = 0 , r = 0;
-    for(int i = 1 ; i <= n + m ; i++){
-        if(l < n && r < m){
-            if(a[l] < b[r]){
-                r ++;
-            }
-            else l ++;
-        }
-        if(l == n) r ++;
-        if(r == m) l++;
-
-        p[i] = {l , r};
-    }
-
-    for(int i = 0 ; i < q ;i ++){
-        int x , y , z ; cin >> x >> y >> z;
-
-        int l = p[z].first , r = p[z].second;
-        if(l > x){
-            cout << pre_a[x] + pre_b[z - x] << '\n';
-        }else if(r > y) cout << pre_b[y] + pre_b[z - y] << '\n';
-        else cout << pre_a[l] + pre_b[r] << '\n'; 
-    }
+    
 }
 int32_t main() {
     fastio();
